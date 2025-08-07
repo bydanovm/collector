@@ -1,0 +1,75 @@
+# docker-compose.yml
+version: '3.5'
+
+networks:
+  bit-price-network:
+    name: bit-price-network
+
+volumes:
+  collector_rdsdata_dev:
+    name: collector_rdsdata_dev
+  collector_pgdata_dev:
+    name: collector_pgdata_dev
+
+services:
+  redis_dev:
+    image: 'redis:7.0.12'
+    container_name: redis_dev
+    networks:
+      - bit-price-network
+    ports:
+      - '${REDIS_PORT}:6379'
+    volumes:
+      - collector_rdsdata_dev:/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+        reservations:
+          cpus: '0.12'
+          memory: 128M
+    command: >
+      sh -c '
+        mkdir -p /usr/local/etc/redis &&
+        echo "bind 0.0.0.0" > /usr/local/etc/redis/redis.conf &&
+        echo "requirepass $REDIS_PASSWORD" >> /usr/local/etc/redis/redis.conf &&
+        echo "appendonly yes" >> /usr/local/etc/redis/redis.conf &&
+        echo "appendfsync everysec" >> /usr/local/etc/redis/redis.conf &&
+        echo "auto-aof-rewrite-min-size 32mb" >> /usr/local/etc/redis/redis.conf &&
+        echo "auto-aof-rewrite-percentage 50" >> /usr/local/etc/redis/redis.conf &&
+        echo "user default on nopass ~* +@all" > /usr/local/etc/redis/users.acl &&
+        echo "user $REDIS_USER on >$REDIS_USER_PASSWORD ~* +@all" >> /usr/local/etc/redis/users.acl &&
+        redis-server /usr/local/etc/redis/redis.conf --aclfile /usr/local/etc/redis/users.acl
+      '
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "$REDIS_PASSWORD", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+
+  pgdata_dev:
+    image: 'postgres:14.3'
+    container_name: pgdata_dev
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    networks:
+      - bit-price-network
+    volumes:
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+      - collector_pgdata_dev:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+        reservations:
+          cpus: '0.12'
+          memory: 128M
+    ports:
+      - ${POSTGRES_PORT}:5432

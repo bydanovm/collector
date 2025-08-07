@@ -1,0 +1,14 @@
+{
+    "go.delveConfig": {
+        "debugAdapter": "legacy",
+        
+        "dlvLoadConfig": {
+          "followPointers": true,
+          "maxVariableRecurse": 3,
+          "maxStringLen": 1000,
+          "maxArrayValues": 1000,
+          "maxStructFields": -1
+      }
+      },
+    "sourcecraft-code-assist.enableAiCodeCompletion": false
+}

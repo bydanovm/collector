@@ -1,0 +1,32 @@
+version: '3.5'
+
+networks:
+  bit-price-network:
+    name: bit-price-network
+    external: true
+
+volumes:
+  logs:
+
+services:
+  collector:
+    env_file: .env.dev
+    # environment:
+    #   - CORS_ALLOW_ORIGIN=${CORS_ALLOW_ORIGIN}
+    #   - TOKEN_BOT=${TOKEN_BOT}
+    #   - TOKEN_LIVE=${TOKEN_LIVE}
+    #   - REDIS_PASSWORD=${REDIS_PASSWORD}
+    #   - REDIS_HOST=${REDIS_HOST}
+    #   - REDIS_PORT=${REDIS_PORT}
+    #   - RATE_LIMITER=${RATE_LIMITER}
+    #   - ADMINS=${ADMINS}
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - logs:/var/logs/
+    networks:
+      - bit-price-network
+    ports:
+      - 12345:12345
+      - 8080:8080

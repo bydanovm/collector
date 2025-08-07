@@ -1,0 +1,47 @@
+version: '3.5'
+
+networks:
+  bit-price-network:
+    name: bit-price-network
+    external: true
+
+volumes:
+  logs:
+
+services:
+  collector:
+    env_file: .env.prod
+    # depends_on:
+    #   - redis
+    # environment:
+    #   - DIR=./
+    #   - CORS_ALLOW_ORIGIN=${CORS_ALLOW_ORIGIN}
+    #   - TOKEN_BOT=${TOKEN_BOT}
+    #   - TOKEN_PASSWORD=${TOKEN_PASSWORD}
+    #   - TOKEN_LIVE=${TOKEN_LIVE}
+    #   - REDIS_PASSWORD=${REDIS_PASSWORD}
+    #   - REDIS_HOST=${REDIS_HOST}
+    #   - REDIS_PORT=${REDIS_PORT}
+    #   - REDIS_USER=${REDIS_USER}
+    #   - REDIS_USER_PASSWORD=${REDIS_USER_PASSWORD}
+    #   - RATE_LIMITER=${RATE_LIMITER}
+    #   - ADMINS=${ADMINS}
+    #   - WHITE_LIST=${WHITE_LIST}
+    #   - POSTGRES_HOST=${POSTGRES_HOST}
+    #   - POSTGRES_PORT=${POSTGRES_PORT}
+    #   - POSTGRES_USER=${POSTGRES_USER}
+    #   - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    #   - POSTGRES_DB=${POSTGRES_DB}
+    #   - POSTGRES_SCHEMA=${POSTGRES_SCHEMA}
+    #   - POSTGRES_SSLMODE=${POSTGRES_SSLMODE}
+    #   - HELPER_HOST=${HELPER_HOST}
+    #   - HELPER_PORT=${HELPER_PORT}
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - logs:/var/logs/
+    networks:
+      - bit-price-network
+    ports:
+      - 8080:8080
