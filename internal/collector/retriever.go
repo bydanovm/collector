@@ -69,6 +69,16 @@ func (r *Retriever) process() {
 	go func() {
 		for range r.Start {
 		}
+
+		select {
+		case <-time.After(1):
+			r.Market.GetTopLatest(r.Data, r.Errors)
+		case <-r.Stop:
+			return
+		case <-r.ctx.Done():
+			return
+		}
+
 		ticker := time.NewTicker(r.Timeout * time.Second)
 		for {
 			select {

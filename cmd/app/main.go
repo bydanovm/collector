@@ -42,6 +42,7 @@ func main() {
 
 	logger := slog.New(logger.NewDBHandler(dbPgSql))
 	slog.SetDefault(logger)
+	slog.Info("Service started")
 
 	marketCMC := models_cmc.NewMarketCMC()
 	retriever := retrievercoins.NewRetriever(ctx, marketCMC)

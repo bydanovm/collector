@@ -12,9 +12,9 @@ volumes:
     name: collector_pgdata_dev
 
 services:
-  redis_dev:
+  collector_redis_dev:
     image: 'redis:7.0.12'
-    container_name: redis_dev
+    container_name: collector_redis_dev
     networks:
       - bit-price-network
     ports:
@@ -51,9 +51,9 @@ services:
     tty: true
     stdin_open: true
 
-  pgdata_dev:
+  collector_pgsql_dev:
     image: 'postgres:14.3'
-    container_name: pgdata_dev
+    container_name: collector_pgsql_dev
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
