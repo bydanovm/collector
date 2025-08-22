@@ -10,7 +10,7 @@ volumes:
 
 services:
   collector_app_dev:
-    env_file: .env.dev
+    env_file: .env
     build:
       context: .
       dockerfile: ./Dockerfile.dev

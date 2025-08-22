@@ -34,15 +34,16 @@ func NewKeeper(ctx context.Context, db OrmImpl) KeeperImpl {
 
 func (k *Keeper) Save(data retrievercoins.DataImpl) {
 	coinStat := &models.CoinStat{
-		IdCoin:      data.GetId(),
-		CmcRank:     data.GetCmcRank(),
-		Name:        data.GetName(),
-		Symbol:      data.GetSymbol(),
-		Price:       data.GetPrice(),
-		Volume24h:   data.GetVolume24h(),
-		MarketCap:   data.GetMarketCap(),
-		Currency:    data.GetCurrency(),
-		LastUpdated: data.GetLastUpdated(),
+		IdCoin:          data.GetId(),
+		CmcRank:         data.GetCmcRank(),
+		Name:            data.GetName(),
+		Symbol:          data.GetSymbol(),
+		Price:           data.GetPrice(),
+		Volume24h:       data.GetVolume24h(),
+		MarketCap:       data.GetMarketCap(),
+		Currency:        data.GetCurrency(),
+		LastUpdated:     data.GetLastUpdated(),
+		LastUpdatedUnix: data.GetLastUpdated().Unix(),
 	}
 	if err := k.db.Db().Create(coinStat).Error; err != nil {
 		slog.Error(fmt.Errorf("%w", err).Error())

@@ -24,6 +24,9 @@ services:
       - POSTGRES_SSLMODE=${POSTGRES_SSLMODE}
       - POSTGRES_SCHEMA=${POSTGRES_SCHEMA}
       - API_CMC=${API_CMC}
+      - NATS_HOST=${NATS_HOST}
+      - NATS_PORT=${NATS_PORT}
+      - NATS_TOKEN=${NATS_TOKEN}
     build:
       context: .
       dockerfile: ./Dockerfile

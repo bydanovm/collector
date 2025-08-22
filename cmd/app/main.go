@@ -8,6 +8,7 @@ import (
 	"os"
 	"time"
 
+	brkr "github.com/mbydanov/simple-miniapp-backend/internal/broker"
 	retrievercoins "github.com/mbydanov/simple-miniapp-backend/internal/collector"
 	models_cmc "github.com/mbydanov/simple-miniapp-backend/internal/collector/models/cmc"
 	"github.com/mbydanov/simple-miniapp-backend/internal/db/pgsql"
@@ -43,6 +44,20 @@ func main() {
 	logger := slog.New(logger.NewDBHandler(dbPgSql))
 	slog.SetDefault(logger)
 	slog.Info("Service started")
+
+	// Регистрация брокера NATS с подписками и публикациями
+	brkr.NewBroker(dbPgSql.Db())
+
+	// Пример публикации
+	// msg := brkr.MsgStruct{
+	// 	Coin:     "BTC",
+	// 	Quantity: 3,
+	// }
+	// msgByte, err := json.Marshal(msg)
+	// if err != nil {
+	// 	slog.Error(fmt.Errorf("%w", err).Error())
+	// }
+	// brkr.GetBroker().Broker.Publish("tgbot.collector", msgByte)
 
 	marketCMC := models_cmc.NewMarketCMC()
 	retriever := retrievercoins.NewRetriever(ctx, marketCMC)
