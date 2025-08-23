@@ -9,8 +9,8 @@ import (
 	"os"
 	"strings"
 
-	retrievercoins "github.com/mbydanov/simple-miniapp-backend/internal/collector"
-	"github.com/mbydanov/simple-miniapp-backend/internal/utils"
+	retrievercoins "github.com/mbydanov/collector/collector_app/internal/collector"
+	"github.com/mbydanov/collector/collector_app/internal/utils"
 )
 
 type MarketCMCImpl interface {

@@ -7,7 +7,7 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/mbydanov/simple-miniapp-backend/internal/db/pgsql"
+	"github.com/mbydanov/collector/collector_app/internal/db/pgsql"
 )
 
 type LogEntry struct {

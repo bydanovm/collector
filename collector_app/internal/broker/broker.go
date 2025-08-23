@@ -6,9 +6,9 @@ import (
 	"log/slog"
 	"os"
 
-	logger "github.com/mbydanov/simple-miniapp-backend/internal/log"
-	"github.com/mbydanov/simple-miniapp-backend/internal/models"
-	"github.com/mbydanov/simple-miniapp-backend/internal/utils"
+	logger "github.com/mbydanov/collector/collector_app/internal/log"
+	"github.com/mbydanov/collector/collector_app/internal/models"
+	"github.com/mbydanov/collector/collector_app/internal/utils"
 	"github.com/nats-io/nats.go"
 	"gorm.io/gorm"
 )

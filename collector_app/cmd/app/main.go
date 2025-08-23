@@ -8,12 +8,12 @@ import (
 	"os"
 	"time"
 
-	brkr "github.com/mbydanov/simple-miniapp-backend/internal/broker"
-	retrievercoins "github.com/mbydanov/simple-miniapp-backend/internal/collector"
-	models_cmc "github.com/mbydanov/simple-miniapp-backend/internal/collector/models/cmc"
-	"github.com/mbydanov/simple-miniapp-backend/internal/db/pgsql"
-	"github.com/mbydanov/simple-miniapp-backend/internal/keeper"
-	logger "github.com/mbydanov/simple-miniapp-backend/internal/log"
+	brkr "github.com/mbydanov/collector/collector_app/internal/broker"
+	retrievercoins "github.com/mbydanov/collector/collector_app/internal/collector"
+	models_cmc "github.com/mbydanov/collector/collector_app/internal/collector/models/cmc"
+	"github.com/mbydanov/collector/collector_app/internal/db/pgsql"
+	"github.com/mbydanov/collector/collector_app/internal/keeper"
+	logger "github.com/mbydanov/collector/collector_app/internal/log"
 )
 
 func main() {

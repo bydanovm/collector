@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log/slog"
 
-	retrievercoins "github.com/mbydanov/simple-miniapp-backend/internal/collector"
-	"github.com/mbydanov/simple-miniapp-backend/internal/models"
+	retrievercoins "github.com/mbydanov/collector/collector_app/internal/collector"
+	"github.com/mbydanov/collector/collector_app/internal/models"
 	"gorm.io/gorm"
 )
 

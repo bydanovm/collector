@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/mbydanov/simple-miniapp-backend/internal/models"
+	"github.com/mbydanov/collector/collector_app/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
